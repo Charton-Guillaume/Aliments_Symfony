@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+{% block titrePage %}Page d'accueil{% endblock %}
+{% block body %}
+
+    {# generer les aliments en cards #}
+    <div class="row">
+        {% for aliment in aliments %}
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="card mb-3 mx-auto">
+                    <div class="card-body text-center">
+                        <h4 class="card-title border-primary "><strong>{{ aliment.nom }}</strong></h4>
+                        <p><small><i><bold>
+                                    Créé {{ aliment.createdAt | ago }}.
+                                    </bold></i></small></p>
+                        <div class="card-text">
+                            <h5>Prix (kilo) : {{ aliment.prix | number_format(2) }}</h5>
+                            <table class="table">
+
+                                <thead>
+                                <tr class="table-info">
+                                    <th>Propriétés</th>
+                                    <th>Valeur</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <td>Calories</td>
+                                    <td>{{ aliment.calorie | number_format(2) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Glucides</td>
+                                    <td>{{ aliment.glucide | number_format(2) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Protéines</td>
+                                    <td>{{ aliment.proteine | number_format(2) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Lipides</td>
+                                    <td>{{ aliment.lipide | number_format(2) }}</td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <p><strong>Catégorie : {{ aliment.categorie.libelle }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {#afficher le navigator#}
+    <div class="row align-items-center">
+        <div class="col-auto mx-auto">
+            <div class="navigation">
+                {{ knp_pagination_render(aliments) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
